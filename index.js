@@ -1,17 +1,19 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 const port = 3000;
 
-const requestHandler = (request, response) => {
-    console.log(request.url);
-    response.end('Hello Node.js Server!');
-}
-
-const server = http.createServer(requestHandler);
-
-server.listen(port, (err) => {
-    if (err) {
-        throw new Error('Something bad happened...');
-    }
-
-    console.log(`server is listening on ${port}`);
+app.get('/', (req, res) => {
+  res.send(`<h1>Bienvenue sur votre serveur !!</h1>`);
 });
+
+app.get('/contact', (req, res) => {
+  res.send(`<h1>Nous ne sommes pas joignables pour le moment ! </h1>`);
+});
+
+app.get('/display/:name', (req, res) => {
+  res.send(`<h1>Vous tentez d’afficher le profil de ${req.params.name}</h1>`);
+});
+
+const message = `Server is running on port ${port}`;
+app.listen(port);
+console.log(message);
